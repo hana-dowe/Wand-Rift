@@ -25,11 +25,7 @@ namespace Unity.FPS.Game
 
         public void OnDamaged(float damage, GameObject damageSource)
         {
-            // hanatodo only fire can burn vines
-
             ShouldTakeDamage(damage, damageSource);
-
-            
 
             // damage reaction
             //m_Health.TakeDamage(damage, gameObject);

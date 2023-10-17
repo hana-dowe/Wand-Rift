@@ -85,6 +85,7 @@ namespace Unity.FPS.Gameplay
         Vector3 m_AccumulatedRecoil;
         float m_TimeStartedWeaponSwitch;
         WeaponSwitchState m_WeaponSwitchState;
+        WeaponSwitchState m_SecondaryWeaponSwitchState;
         int m_WeaponSwitchNewWeaponIndex;
 
         void Start()
@@ -124,14 +125,14 @@ namespace Unity.FPS.Gameplay
         {
             // shoot handling
             WeaponController activeWeapon = GetActiveWeapon();
-            WeaponController activeSecondaryWeapon = m_SecondaryWeaponSlots[ActiveSecondaryWeaponIndex];
+            WeaponController activeSecondaryWeapon = GetActiveSecondaryWeapon();
 
             if (activeWeapon != null && activeWeapon.IsReloading)
                 return;
             
             if (activeSecondaryWeapon != null && activeSecondaryWeapon.IsReloading) return;
 
-            if (activeWeapon != null && m_WeaponSwitchState == WeaponSwitchState.Up)
+            if (activeWeapon != null && m_WeaponSwitchState == WeaponSwitchState.Up && m_SecondaryWeaponSwitchState == WeaponSwitchState.Up)
             { 
                 // handle shooting secondary weapon
                 bool hasFiredSecondary = activeSecondaryWeapon.HandleShootInputs(
@@ -178,6 +179,28 @@ namespace Unity.FPS.Gameplay
                 }
             }
 
+            // secondary weapon switch handling
+            if (
+                (activeSecondaryWeapon == null || !activeSecondaryWeapon.IsCharging) &&
+                (m_SecondaryWeaponSwitchState == WeaponSwitchState.Up || m_SecondaryWeaponSwitchState == WeaponSwitchState.Down))
+            {
+                int switchWeaponInput = m_InputHandler.GetSwitchWeaponInput();
+                if (switchWeaponInput != 0)
+                {
+                    bool switchUp = switchWeaponInput > 0;
+                    SwitchWeapon(switchUp);
+                }
+                else
+                {
+                    switchWeaponInput = m_InputHandler.GetSelectWeaponInput();
+                    if (switchWeaponInput != 0)
+                    {
+                        if (m_SecondaryWeaponSlots[switchWeaponInput -1] != null)
+                            SwitchToSecondaryWeaponIndex(switchWeaponInput - 1);
+                    }
+                }
+            }
+
             // Pointing at enemy handling
             IsPointingAtEnemy = false;
             if (activeWeapon)
@@ -200,6 +223,7 @@ namespace Unity.FPS.Gameplay
             UpdateWeaponBob();
             UpdateWeaponRecoil();
             UpdateWeaponSwitching();
+            UpdateSecondaryWeaponSwitching();
 
             // Set final weapon socket position based on all the combined animation influences
             WeaponParentSocket.localPosition =
@@ -264,6 +288,36 @@ namespace Unity.FPS.Gameplay
                 else
                 {
                     m_WeaponSwitchState = WeaponSwitchState.PutDownPrevious;
+                }
+            }
+        }
+
+        // Switches secondary weapon to the given weapon index in weapon slots if the new index is a valid weapon that is different from our current one
+        public void SwitchToSecondaryWeaponIndex(int newWeaponIndex, bool force = false)
+        {
+            if (force || (newWeaponIndex != ActiveSecondaryWeaponIndex && newWeaponIndex >= 0))
+            {
+                // Store data related to weapon switching animation
+                m_WeaponSwitchNewWeaponIndex = newWeaponIndex;
+                m_TimeStartedWeaponSwitch = Time.time;
+
+                // Handle case of switching to a valid weapon for the first time (simply put it up without putting anything down first)
+                if (GetActiveSecondaryWeapon() == null)
+                {
+                    m_WeaponMainLocalPosition = DownWeaponPosition.localPosition;
+                    m_SecondaryWeaponSwitchState = WeaponSwitchState.PutUpNew;
+                    ActiveSecondaryWeaponIndex = m_WeaponSwitchNewWeaponIndex;
+
+                    WeaponController newWeapon = m_SecondaryWeaponSlots[ActiveSecondaryWeaponIndex];
+                    if (OnSwitchedToWeapon != null)
+                    {
+                        OnSwitchedToWeapon.Invoke(newWeapon);
+                    }
+                }
+                // otherwise, remember we are putting down our current weapon for switching to the next one
+                else
+                {
+                    m_SecondaryWeaponSwitchState = WeaponSwitchState.PutDownPrevious;
                 }
             }
         }
@@ -402,6 +456,72 @@ namespace Unity.FPS.Gameplay
             }
         }
 
+        // Updates the animated transition of switching secondary weapons
+        void UpdateSecondaryWeaponSwitching()
+        {
+            // Calculate the time ratio (0 to 1) since weapon switch was triggered
+            float switchingTimeFactor = 0f;
+            if (WeaponSwitchDelay == 0f)
+            {
+                switchingTimeFactor = 1f;
+            }
+            else
+            {
+                switchingTimeFactor = Mathf.Clamp01((Time.time - m_TimeStartedWeaponSwitch) / WeaponSwitchDelay);
+            }
+
+            // Handle transiting to new switch state
+            if (switchingTimeFactor >= 1f)
+            {
+                if (m_SecondaryWeaponSwitchState == WeaponSwitchState.PutDownPrevious)
+                {
+                    // Deactivate old weapon
+                    WeaponController oldWeapon = m_SecondaryWeaponSlots[ActiveSecondaryWeaponIndex];
+                    if (oldWeapon != null)
+                    {
+                        oldWeapon.ShowWeapon(false);
+                    }
+
+                    ActiveSecondaryWeaponIndex = m_WeaponSwitchNewWeaponIndex;
+                    switchingTimeFactor = 0f;
+
+                    // Activate new weapon
+                    WeaponController newWeapon = m_SecondaryWeaponSlots[ActiveSecondaryWeaponIndex];
+                    if (OnSwitchedToWeapon != null)
+                    {
+                        OnSwitchedToWeapon.Invoke(newWeapon);
+                    }
+
+                    if (newWeapon)
+                    {
+                        m_TimeStartedWeaponSwitch = Time.time;
+                        m_SecondaryWeaponSwitchState = WeaponSwitchState.PutUpNew;
+                    }
+                    else
+                    {
+                        // if new weapon is null, don't follow through with putting weapon back up
+                        m_SecondaryWeaponSwitchState = WeaponSwitchState.Down;
+                    }
+                }
+                else if (m_SecondaryWeaponSwitchState == WeaponSwitchState.PutUpNew)
+                {
+                    m_SecondaryWeaponSwitchState = WeaponSwitchState.Up;
+                }
+            }
+
+            // Handle moving the weapon socket position for the animated weapon switching
+            if (m_SecondaryWeaponSwitchState == WeaponSwitchState.PutDownPrevious)
+            {
+                m_WeaponMainLocalPosition = Vector3.Lerp(DefaultWeaponPosition.localPosition,
+                    DownWeaponPosition.localPosition, switchingTimeFactor);
+            }
+            else if (m_SecondaryWeaponSwitchState == WeaponSwitchState.PutUpNew)
+            {
+                m_WeaponMainLocalPosition = Vector3.Lerp(DownWeaponPosition.localPosition,
+                    DefaultWeaponPosition.localPosition, switchingTimeFactor);
+            }
+        }
+
         // Adds a weapon to our inventory
         public bool AddWeapon(WeaponController weaponPrefab)
         {
@@ -532,6 +652,11 @@ namespace Unity.FPS.Gameplay
         public WeaponController GetActiveWeapon()
         {
             return GetWeaponAtSlotIndex(ActiveWeaponIndex);
+        }
+
+        public WeaponController GetActiveSecondaryWeapon()
+        {
+            return m_SecondaryWeaponSlots[ActiveSecondaryWeaponIndex];
         }
 
         public WeaponController GetWeaponAtSlotIndex(int index)

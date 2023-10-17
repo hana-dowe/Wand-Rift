@@ -27,9 +27,7 @@ namespace Unity.FPS.OBSTACLES
         void ShouldTakeDamage(float damage, GameObject damageSource) 
         {
             // only take damage if fire attack
-
-            // hanatodo change name
-            if (!damageSource.name.Contains("Turret")) {
+            if (!damageSource.name.Contains("Fire")) {
                 return;
             }
 

@@ -163,7 +163,7 @@ namespace Unity.FPS.Gameplay
             return false;
         }
 
-        public int GetSwitchWeaponInput() // hanatodo remove but reference for secondary stuff
+        public int GetSwitchWeaponInput() // use for scrolling through weapons?
         {
             if (CanProcessInput())
             {
@@ -186,7 +186,7 @@ namespace Unity.FPS.Gameplay
             return 0;
         }
 
-        public int GetSelectWeaponInput() // hanatodo use this whoops
+        public int GetSelectWeaponInput()
         {
             if (CanProcessInput())
             {
@@ -196,18 +196,6 @@ namespace Unity.FPS.Gameplay
                     return 2;
                 else if (Input.GetKeyDown(KeyCode.Alpha3))
                     return 3;
-                else if (Input.GetKeyDown(KeyCode.Alpha4))
-                    return 4;
-                else if (Input.GetKeyDown(KeyCode.Alpha5))
-                    return 5;
-                else if (Input.GetKeyDown(KeyCode.Alpha6))
-                    return 6;
-                else if (Input.GetKeyDown(KeyCode.Alpha7))
-                    return 7;
-                else if (Input.GetKeyDown(KeyCode.Alpha8))
-                    return 8;
-                else if (Input.GetKeyDown(KeyCode.Alpha9))
-                    return 9;
                 else
                     return 0;
             }

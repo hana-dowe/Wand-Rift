@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponName: Blaster
-  WeaponIcon: {fileID: 21300000, guid: 3c187e19c32c13542ba8a0c1a3a88ece, type: 3}
+  WeaponIcon: {fileID: 21300000, guid: 8a8e839c2ab95d842b3d15797cd8febd, type: 3}
   CrosshairDataDefault:
     CrosshairSprite: {fileID: 21300000, guid: e881aa18189b12f4e915fc5b14ddc421, type: 3}
     CrosshairSize: 55
@@ -192,9 +192,9 @@ MonoBehaviour:
   WeaponRoot: {fileID: 1505447205160222267}
   WeaponMuzzle: {fileID: 8334323006752503713}
   ShootType: 1
-  ProjectilePrefab: {fileID: 8924682559891268397, guid: 776f948931eeb3b43998a865582fe7bb,
+  ProjectilePrefab: {fileID: 8924682559891268397, guid: 4568ac4ba29ed4240a0d873a02180175,
     type: 3}
-  DelayBetweenShots: 0.1
+  DelayBetweenShots: 0.75
   BulletSpreadAngle: 0
   BulletsPerShot: 1
   RecoilForce: 1
@@ -205,9 +205,9 @@ MonoBehaviour:
   EjectionPort: {fileID: 0}
   ShellCasingEjectionForce: 2
   ShellPoolSize: 1
-  AmmoReloadRate: 16
-  AmmoReloadDelay: 1
-  MaxAmmo: 16
+  AmmoReloadRate: 0.25
+  AmmoReloadDelay: 2
+  MaxAmmo: 5
   AutomaticReleaseOnCharged: 0
   MaxChargeDuration: 2
   AmmoUsedOnStartCharge: 1

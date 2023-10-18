@@ -415,7 +415,7 @@ namespace Unity.FPS.AI
                 return false;
 
             // Shoot the weapon
-            bool didFire = GetCurrentWeapon().HandleShootInputs(false, true, false);
+            bool didFire = GetCurrentWeapon().HandleShootInputs(false, true, false, false);
 
             if (didFire && onAttack != null)
             {

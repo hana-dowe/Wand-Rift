@@ -138,14 +138,16 @@ namespace Unity.FPS.Gameplay
                 bool hasFiredSecondary = activeSecondaryWeapon.HandleShootInputs(
                   m_InputHandler.GetSecondaryFireInputDown(),
                     m_InputHandler.GetSecondaryFireInputHeld(),
-                    m_InputHandler.GetSecondaryFireInputReleased());
+                    m_InputHandler.GetSecondaryFireInputReleased(), 
+                    false);
 
                 if (!hasFiredSecondary) {
                     // handle shooting primary weapon
                     bool hasFired = activeWeapon.HandleShootInputs(
                         m_InputHandler.GetFireInputDown(),
                         m_InputHandler.GetFireInputHeld(),
-                        m_InputHandler.GetFireInputReleased());
+                        m_InputHandler.GetFireInputReleased(),
+                        true);
 
 
                     // Handle accumulating recoil
@@ -558,10 +560,10 @@ namespace Unity.FPS.Gameplay
 
                     m_WeaponSlots[i] = weaponInstance;
 
-                    if (OnAddedWeapon != null)
-                    {
-                        OnAddedWeapon.Invoke(weaponInstance, i);
-                    }
+                    // if (OnAddedWeapon != null)
+                    // {
+                    //     OnAddedWeapon.Invoke(weaponInstance, i);
+                    // }
 
                     return true;
                 }
@@ -607,10 +609,10 @@ namespace Unity.FPS.Gameplay
 
                     m_SecondaryWeaponSlots[i] = weaponInstance;
 
-                    // if (OnAddedWeapon != null)
-                    // {
-                    //     OnAddedWeapon.Invoke(weaponInstance, i);
-                    // }
+                    if (OnAddedWeapon != null)
+                    {
+                        OnAddedWeapon.Invoke(weaponInstance, i);
+                    }
 
                     return true;
                 }

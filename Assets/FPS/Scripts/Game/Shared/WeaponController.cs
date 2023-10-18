@@ -344,7 +344,7 @@ namespace Unity.FPS.Game
             m_LastTimeShot = Time.time;
         }
 
-        public bool HandleShootInputs(bool inputDown, bool inputHeld, bool inputUp)
+        public bool HandleShootInputs(bool inputDown, bool inputHeld, bool inputUp, bool infiniteAmmo)
         {
             m_WantsToShoot = inputDown || inputHeld;
             switch (ShootType)
@@ -360,6 +360,9 @@ namespace Unity.FPS.Game
                 case WeaponShootType.Automatic:
                     if (inputHeld)
                     {
+                         if (infiniteAmmo) {
+                            ShootWithoutAmmo();
+                        }
                         return TryShoot();
                     }
 
@@ -382,6 +385,17 @@ namespace Unity.FPS.Game
                 default:
                     return false;
             }
+        }
+
+        bool ShootWithoutAmmo()
+        {
+            if (m_LastTimeShot + DelayBetweenShots < Time.time)
+            {
+                HandleShoot();
+                return true;
+            }
+
+            return false;
         }
 
         bool TryShoot()

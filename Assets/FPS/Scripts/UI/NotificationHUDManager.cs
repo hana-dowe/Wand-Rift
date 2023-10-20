@@ -17,7 +17,7 @@ namespace Unity.FPS.UI
             PlayerWeaponsManager playerWeaponsManager = FindObjectOfType<PlayerWeaponsManager>();
             DebugUtility.HandleErrorIfNullFindObject<PlayerWeaponsManager, NotificationHUDManager>(playerWeaponsManager,
                 this);
-            playerWeaponsManager.OnAddedWeapon += OnPickupWeapon;
+            //playerWeaponsManager.OnAddedWeapon += OnPickupWeapon;
 
             EventManager.AddListener<ObjectiveUpdateEvent>(OnObjectiveUpdateEvent);
         }
@@ -28,11 +28,11 @@ namespace Unity.FPS.UI
                 CreateNotification(evt.NotificationText);
         }
 
-        void OnPickupWeapon(WeaponController weaponController, int index)
-        {
-            if (index != 0)
-                CreateNotification("Picked up weapon : " + weaponController.WeaponName);
-        }
+        // void OnPickupWeapon(WeaponController weaponController, int index)
+        // {
+        //     if (index != 0)
+        //         CreateNotification("Picked up weapon : " + weaponController.WeaponName);
+        // }
 
         public void CreateNotification(string text)
         {

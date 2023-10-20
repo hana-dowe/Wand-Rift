@@ -1630,6 +1630,7 @@ MonoBehaviour:
   AmmoPanel: {fileID: 7784911861666327368}
   AmmoCounterPrefab: {fileID: 645032500860478885, guid: 381e109c8e235f54cbcfbe7434554e49,
     type: 3}
+  ControlUIPrefab: {fileID: 0}
 --- !u!114 &5499754808462435493
 MonoBehaviour:
   m_ObjectHideFlags: 0

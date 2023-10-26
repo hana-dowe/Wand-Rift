@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Rendering/Main Game Background Image/MainLevelSkyBox.mat.meta
 guid: 6f9ed5c6c478d924c99aae08b3e3f034
 NativeFormatImporter:
+========
+guid: b371c9a473127c247a47a0b6cd15d2ca
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> cdaa8e73170cec1407ee6e88e253f394a45ce991:Assets/Level 1 Monster Pack.meta
   externalObjects: {}
   mainObjectFileID: 2100000
   userData: 

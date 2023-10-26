@@ -58,9 +58,9 @@ namespace Unity.FPS.OBSTACLES
 
         IEnumerator BurnVines()
         {
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.4f);
             Mesh.SetActive(false);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.3f);
             Destroy(gameObject);
         }
 

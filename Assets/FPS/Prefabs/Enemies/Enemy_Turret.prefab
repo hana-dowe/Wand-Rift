@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27364eefd6dd0341ba72a3bfc0d9727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 150
+  MaxHealth: 500
   CriticalHealthRatio: 0.3
 --- !u!114 &3464315327790461765
 MonoBehaviour:
@@ -338,7 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TurretPivot: {fileID: 7886326314632062837}
   TurretAimPoint: {fileID: 6571005840976436832}
-  Animator: {fileID: 7886326314639247517}
+  Animator: {fileID: 4518923851495582020}
   AimRotationSharpness: 5
   LookAtRotationSharpness: 2.5
   DetectionFireDelay: 1.1
@@ -1148,6 +1148,11 @@ PrefabInstance:
       propertyPath: scalingMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7951582856014658560, guid: 3f5b545b9a1e74c418b061bba5bb9e2c,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1428,11 +1433,22 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 95000010452426964, guid: 30d420b7cf5d3ad40b5c02db6d73287a,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e9acec91018551b4280ed3be3ec79926, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30d420b7cf5d3ad40b5c02db6d73287a, type: 3}
+--- !u!95 &4518923851495582020 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95000010452426964, guid: 30d420b7cf5d3ad40b5c02db6d73287a,
+    type: 3}
+  m_PrefabInstance: {fileID: 4604916657721428368}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4605430556178113640 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000013931392504, guid: 30d420b7cf5d3ad40b5c02db6d73287a,
@@ -1734,12 +1750,6 @@ Transform:
 --- !u!4 &7886326314632062847 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: fad35a70731ab804c975c717ee8862a5,
-    type: 3}
-  m_PrefabInstance: {fileID: 7886326314631937533}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &7886326314639247517 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 9500000, guid: fad35a70731ab804c975c717ee8862a5,
     type: 3}
   m_PrefabInstance: {fileID: 7886326314631937533}
   m_PrefabAsset: {fileID: 0}

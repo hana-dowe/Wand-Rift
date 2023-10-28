@@ -9,6 +9,7 @@ namespace Unity.FPS.OBSTACLES
 
         [Tooltip("The random hit damage effects")]
         public ParticleSystem[] RandomHitSparks;
+        public GameObject ElectricityEffects;
 
         Health m_Health;
         Destructable m_destructable;
@@ -22,6 +23,8 @@ namespace Unity.FPS.OBSTACLES
             {
                 m_Health = GetComponentInParent<Health>();
             }
+
+            ElectricityEffects.SetActive(false);
 
             // Subscribe to damage & death actions
             m_Health.OnDie += OnDie;
@@ -50,6 +53,7 @@ namespace Unity.FPS.OBSTACLES
             }
 
            // Animator.SetTrigger(k_AnimOnDamagedParameter);
+           ElectricityEffects.SetActive(true);
 
             m_Health.TakeDamage(damage, damageSource);
 

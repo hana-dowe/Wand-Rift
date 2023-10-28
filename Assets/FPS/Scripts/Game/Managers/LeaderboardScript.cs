@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ldScript : MonoBehaviour
+public class LeaderboardScript : MonoBehaviour
 {
     public Text leaderboardText;
     private List<float> scores = new List<float>();

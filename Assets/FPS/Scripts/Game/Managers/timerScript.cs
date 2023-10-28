@@ -9,9 +9,10 @@ public class timerScript : MonoBehaviour
     private float startTime;
     private bool gameRunning = false;
 
-    void Start()
+    protected void Start()
     {
-        timerText = GetComponent<Text>():
+        // Initialize your UI Text component for displaying the timer
+        timerText = GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -24,7 +25,7 @@ public class timerScript : MonoBehaviour
         int seconds = (int)(currentTime % 60);
         int milliseconds = (int)((currentTime * 1000) % 1000);
 
-        timerText.text = string.Format("{0:00}:{1:00}:{2.000}", minutes, seconds, milliseconds);
+        timerText.text = string.Format("{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds);
        } 
     }
 
@@ -36,7 +37,7 @@ public class timerScript : MonoBehaviour
 
     public void StopTimer()
     {
-        timerActive = false;
+        gameRunning = false;
     }
 
     public float GetElapsedTime()

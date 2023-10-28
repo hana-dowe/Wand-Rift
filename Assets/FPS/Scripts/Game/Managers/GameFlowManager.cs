@@ -6,7 +6,7 @@ namespace Unity.FPS.Game
     public class GameFlowManager : MonoBehaviour
     {
         public timerScript timer;
-        public ldScript leaderboard;
+        public LeaderboardScript leaderboard;
 
         [Header("Parameters")] [Tooltip("Duration of the fade-to-black at the end of the game")]
         public float EndSceneLoadDelay = 3f;
@@ -44,7 +44,7 @@ namespace Unity.FPS.Game
 
         void Start()
         {
-            timerScript.Start();
+            timer.StartTimer();
             // Start the timer when the game begins
 
             AudioUtility.SetMasterVolume(1);

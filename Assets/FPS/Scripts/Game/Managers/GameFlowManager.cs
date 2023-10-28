@@ -5,6 +5,9 @@ namespace Unity.FPS.Game
 {
     public class GameFlowManager : MonoBehaviour
     {
+        public timerScript timer;
+        public ldScript leaderboard;
+
         [Header("Parameters")] [Tooltip("Duration of the fade-to-black at the end of the game")]
         public float EndSceneLoadDelay = 3f;
 
@@ -41,6 +44,9 @@ namespace Unity.FPS.Game
 
         void Start()
         {
+            timerScript.Start();
+            // Start the timer when the game begins
+
             AudioUtility.SetMasterVolume(1);
         }
 
@@ -70,6 +76,12 @@ namespace Unity.FPS.Game
             // unlocks the cursor before leaving the scene, to be able to click buttons
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+
+            timer.StopTimer();
+            float time = timer.GetElapsedTime();
+            leaderboard.AddScore(time);
+
+
 
             // Remember that we need to load the appropriate end scene after a delay
             GameIsEnding = true;

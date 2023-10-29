@@ -13,6 +13,7 @@ namespace Unity.FPS.OBSTACLES
         public ParticleSystem[] RandomHitSparks;
 
         public GameObject Mesh;
+        public GameObject Icon;
         public GameObject FireEffects;
 
         Destructable m_destructable;
@@ -60,6 +61,7 @@ namespace Unity.FPS.OBSTACLES
         {
             yield return new WaitForSeconds(0.4f);
             Mesh.SetActive(false);
+            Icon.SetActive(false);
             yield return new WaitForSeconds(0.3f);
             Destroy(gameObject);
         }

@@ -64,6 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RandomHitSparks: []
   Mesh: {fileID: 5295307473849608774}
+  Icon: {fileID: 4455227396181931130}
   FireEffects: {fileID: 7241498942645744910}
 --- !u!1 &4191702363123950811
 GameObject:
@@ -200,7 +201,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30

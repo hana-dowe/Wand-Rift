@@ -18,8 +18,8 @@ TagManager:
   - FirstPersonWeapon
   - PhysicalAmmo
   - 
-  - 
-  - 
+  - wallBlockLayer
+  - deadendLayer
   - 
   - 
   - 

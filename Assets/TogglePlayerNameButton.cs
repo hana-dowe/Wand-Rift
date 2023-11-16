@@ -13,6 +13,7 @@ public class TogglePlayerNameButton : MonoBehaviour
     void Start()
     {
         PlayerNamePanel.SetActive(true);
+        SubmitButton.onClick.AddListener(SubmitPlayerName);
     }
 
     // Update is called once per frame

@@ -13,11 +13,18 @@ public class DeadEndTextEvent : MonoBehaviour
     public float minimumLookAwayDuration = 1f;
 
     private string[] quotes = {
-        "Don't look behind",
+        "You shouldn't be here...",
         "Something's lurking...",
         "Can you feel the presence?",
         "'. . .'",
         "",
+        "leave",
+        "go back",
+        "you're not welcome",
+        "you're not supposed to be here",
+        "death awaits you",
+        "you're not safe",
+        "shhhh"
     };
 
     private bool isQuoteDisplayed = false;

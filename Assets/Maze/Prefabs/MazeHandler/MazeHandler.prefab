@@ -442,6 +442,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MazeRenderer
       objectReference: {fileID: 0}
+    - target: {fileID: 7820470561942003462, guid: 5dc089e6e20ffa948b97f12d6dbacef8,
+        type: 3}
+      propertyPath: ExitPrefab
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

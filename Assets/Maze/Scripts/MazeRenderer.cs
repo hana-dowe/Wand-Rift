@@ -215,25 +215,20 @@ public class MazeRenderer : MonoBehaviour
         bool hasUpNeighbor = HasNeighbor(cell, maze, Direction.UP);
         bool hasDownNeighbor = HasNeighbor(cell, maze, Direction.DOWN);
 
-        // List to hold possible rotations
         List<Quaternion> possibleRotations = new List<Quaternion>();
 
-        // Handle opposing sides (left-right, up-down)
         if (hasLeftNeighbor && hasRightNeighbor)
         {
-            // Choose between left and right randomly or based on a specific rule
             possibleRotations.Add(Quaternion.Euler(0, 90, 0)); // Left
             possibleRotations.Add(Quaternion.Euler(0, -90, 0)); // Right
         }
         else if (hasUpNeighbor && hasDownNeighbor)
         {
-            // Choose between up and down randomly or based on a specific rule
             possibleRotations.Add(Quaternion.Euler(0, 180, 0)); // Up
             possibleRotations.Add(Quaternion.Euler(0, 0, 0)); // Down
         }
         else
         {
-            // Handle single direction cases
             if (hasLeftNeighbor)
                 possibleRotations.Add(Quaternion.Euler(0, 90, 0));
             if (hasRightNeighbor)
@@ -244,12 +239,10 @@ public class MazeRenderer : MonoBehaviour
                 possibleRotations.Add(Quaternion.Euler(0, 0, 0));
         }
 
-        // Choose a rotation randomly if there are multiple possibilities
         if (possibleRotations.Count > 0)
             return possibleRotations[Random.Range(0, possibleRotations.Count)];
 
-        // Default rotation if no conditions are met
-        return Quaternion.Euler(0, Random.Range(0, 4) * 90, 0); // Randomly choose between 0, 90, 180, 270 degrees
+        return Quaternion.Euler(0, Random.Range(0, 4) * 90, 0); 
     }
 
     private GameObject ChooseFoliagePrefab()

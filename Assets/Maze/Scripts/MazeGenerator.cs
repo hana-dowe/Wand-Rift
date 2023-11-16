@@ -275,13 +275,13 @@ public class MazeGenerator : MonoBehaviour
 
         foreach (MazeCell wall in wallCells)
         {
-            // Skip walls on the border
+            // skip walls on the border
             if (wall.x == 0 || wall.y == 0 || wall.x == maze.width - 1 || wall.y == maze.height - 1)
             {
                 continue;
             }
 
-            // Count neighboring path cells
+            // count neighboring path cells
             int pathNeighbors = 0;
             if (maze.cells[wall.x + 1 + wall.y * maze.width].type == CellType.PATH) pathNeighbors++;
             if (maze.cells[wall.x - 1 + wall.y * maze.width].type == CellType.PATH) pathNeighbors++;
@@ -294,7 +294,7 @@ public class MazeGenerator : MonoBehaviour
                 continue;
             }
 
-            // Valid horizontal door location
+            // valid horizontal door location
             if (maze.cells[wall.x + 1 + wall.y * maze.width].type == CellType.PATH &&
                 maze.cells[wall.x - 1 + wall.y * maze.width].type == CellType.PATH)
             {
@@ -302,7 +302,7 @@ public class MazeGenerator : MonoBehaviour
                 continue;
             }
 
-            // Valid vertical door location
+            // valid vertical door location
             if (maze.cells[wall.x + (wall.y + 1) * maze.width].type == CellType.PATH &&
                 maze.cells[wall.x + (wall.y - 1) * maze.width].type == CellType.PATH)
             {
@@ -342,7 +342,7 @@ public class MazeGenerator : MonoBehaviour
             MazeCell vineCell = pathCells[randomIndex];
             vineCell.type = CellType.VINE;
             maze.cells[vineCell.x + vineCell.y * maze.width] = vineCell;
-            pathCells.RemoveAt(randomIndex); // Remove to avoid placing multiple vines on the same cell
+            pathCells.RemoveAt(randomIndex); 
         }
     }
 

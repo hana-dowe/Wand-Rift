@@ -13,6 +13,7 @@ public class timerScript : MonoBehaviour
     {
         // Initialize your UI Text component for displaying the timer
         timerText = GetComponent<Text>();
+        Debug.Log("timerText: " + timerText);
     }
 
     // Update is called once per frame
@@ -24,7 +25,7 @@ public class timerScript : MonoBehaviour
         int minutes = (int)(currentTime / 60);
         int seconds = (int)(currentTime % 60);
         int milliseconds = (int)((currentTime * 1000) % 1000);
-
+        Debug.Log(string.Format("{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds));
         timerText.text = string.Format("{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds);
        } 
     }

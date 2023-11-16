@@ -6,13 +6,15 @@ using MazeCore.enums;
 public class CellTriggerHandler : MonoBehaviour
 {
     public CellType cellType;
-    public GameObject player; // Public reference to the player object
+    public GameObject player; 
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == player) // Check if the player has entered the trigger
+        if (other.gameObject == player) 
         {
+            Debug.Log("Player has entered the trigger");
+            // Do something with the cell type
         //     switch(cellType)
         //     {
         //         // case CellType.PATH:

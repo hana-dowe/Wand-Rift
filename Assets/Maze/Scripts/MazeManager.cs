@@ -62,15 +62,15 @@ public class MazeManager : MonoBehaviour
         mazeGenerator.AddRandomVines(maze1, 5);
         mazeRenderer.RenderMaze(maze1);
 
-        // offset for the second maze.
-        Vector3 offset = new Vector3(0, 0, (HEIGHT) * mazeRenderer.spacing_y);
+        // // offset for the second maze.
+        // Vector3 offset = new Vector3(0, 0, (HEIGHT) * mazeRenderer.spacing_y);
 
-        Maze maze2 = mazeGenerator.CreateEmptyBox(
-            WIDTH, HEIGHT, 
-            new Vector2Int(PORTAL2, TOP), 
-            new Vector2Int(PORTAL3, BOTTOM)
-        );
-        mazeRenderer.RenderEmptyBox(maze2, offset);
+        // Maze maze2 = mazeGenerator.CreateEmptyBox(
+        //     WIDTH, HEIGHT, 
+        //     new Vector2Int(PORTAL2, TOP), 
+        //     new Vector2Int(PORTAL3, BOTTOM)
+        // );
+        // mazeRenderer.RenderEmptyBox(maze2, offset);
 
         BakeNavMesh();
     }

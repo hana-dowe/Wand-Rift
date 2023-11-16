@@ -6,34 +6,22 @@ public class CellLookAtService : MonoBehaviour
 {
     public Camera playerCamera;
     public LayerMask wallsLayerMask; // Only for the walls
-    public LayerMask deadEndsLayerMask; // Only for the deadends
+    public LayerMask deadEndsLayerMask; // Only for the dead ends
 
     public bool IsLookingAtDeadEnd()
     {
         RaycastHit hit;
-
-        // detect deadends and walls
+        Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 1000, Color.red, 1f); // Debug raycast
+        // Raycast to detect dead ends and walls
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, wallsLayerMask | deadEndsLayerMask))
-        {   
-            //need to add a check for the deadend layer to prevent seeing through walls
-            if ((1 << hit.collider.gameObject.layer) == wallsLayerMask.value)
+        {
+            
+            if (hit.collider.gameObject.layer == 14) // 14 is the dead ends layer
             {
-                Debug.Log("Blocked by a wall!");
-            }
-            else if ((1 << hit.collider.gameObject.layer) == deadEndsLayerMask.value)
-            {
-                // Perform a second raycast to check for walls between the camera and the hit point
-                if (!Physics.Raycast(playerCamera.transform.position, hit.point - playerCamera.transform.position, Vector3.Distance(hit.point, playerCamera.transform.position), wallsLayerMask))
-                {
-                    Debug.Log("Looking at a deadend!");
-                    
-                    return true;
-                }
+                return true;
             }
         }
-    
+
         return false;
     }
-    
- 
 }
